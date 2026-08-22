@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>ReCarga — Dashboard</title>
+<link rel="stylesheet" href="/style.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.4/chart.umd.min.js"></script>
+</head>
+<body>
+<header class="topbar">
+  <div>
+    <div class="title-row">
+      <h1>ReCarga</h1>
+      <span class="badge mono">protótipo v0.3</span>
+    </div>
+    <p class="subtitle">Sistema de recarga veicular com controle de sobrecarga · projeto acadêmico em parceria com GoodWe</p>
+  </div>
+  <div class="chips">
+    <span class="chip">📡 Sensor de efeito Hall</span>
+    <span class="chip">🧩 ESP32</span>
+    <span class="chip">🔳 QR Code</span>
+  </div>
+</header>
+<main class="layout">
+  <section class="left">
+    <div class="card">
+      <div class="load-header">
+        <div>
+          <div class="label">Barramento do estacionamento</div>
+          <div class="load-value mono" id="load-value">0.0 <span>/ 40 A</span></div>
+        </div>
+        <div class="load-alert mono" id="load-alert"></div>
+      </div>
+      <div class="bar-track"><div class="bar-fill" id="bar-fill"></div></div>
+      <div class="taps" id="taps"></div>
+      <div class="legend">
+        <span><i style="background:#34D399"></i>pré-pago garantido</span>
+        <span><i style="background:#2DD4C8"></i>pós-pago normal</span>
+        <span><i style="background:#F5A623"></i>pós-pago limitado</span>
+        <span><i style="background:#EF5350"></i>pós-pago em fila</span>
+      </div>
+    </div>
+    <div class="station-grid" id="station-grid"></div>
+    <div class="card chart-card">
+      <div class="row-between">
+        <div class="label">Receita acumulada</div>
+        <div class="mono" id="total-revenue">R$ 0.00</div>
+      </div>
+      <canvas id="revenue-chart" height="90"></canvas>
+    </div>
+  </section>
+  <section class="right">
+    <div class="card" id="formula-card"></div>
+    <div class="card" id="plans-card"></div>
+    <div class="card" id="stats-card"></div>
+    <p class="footnote">Simulação de referência — cada vaga representa um carregador com sensor de efeito Hall lendo a corrente (I); o ESP32 envia a leitura por Bluetooth ao app, que calcula potência, energia e custo em tempo real.</p>
+  </section>
+</main>
+<script src="/app.js"></script>
+</body>
+</html>
