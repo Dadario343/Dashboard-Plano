@@ -8,7 +8,8 @@
 | *(Mateus de Oliveira Fernandes Neves )* | *(572431)* |
 | *(Angela Sousa Takezawa)* | *(570797)* |
 | *(Paulo Henrique Lira Bilac de Araujo)* | *(569496)* |
-| *(Pedro Soares de Souza)* | *(571285)* |
+| *(Pedro Soares de Souza)* | *(571285)* |}
+| *(Jhon Cutile Titirico)* | *(571976)* |
 
 # ReCarga — Dashboard de Recarga Veicular
 
