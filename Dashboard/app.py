@@ -23,8 +23,10 @@ CAR_NAMES = ["Onix EV", "HB20 e", "Kwid Volt", "Compass e", "Fastback e", "Corol
 PORT = 5000
 
 BASE_DIR = Path(__file__).resolve().parent
-TEMPLATES_DIR = BASE_DIR / "templates"
-STATIC_DIR = BASE_DIR / "static"
+PROJECT_DIR = BASE_DIR.parent
+
+TEMPLATES_DIR = PROJECT_DIR / "template"
+STATIC_DIR = PROJECT_DIR / "Static"
 
 lock = threading.Lock()
 
@@ -196,3 +198,4 @@ if __name__ == "__main__":
     print(f"ReCarga rodando em http://localhost:{PORT}  (Ctrl+C para parar)")
     server = ThreadingHTTPServer(("localhost", PORT), Handler)
     server.serve_forever()
+
