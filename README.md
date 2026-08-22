@@ -1,632 +1,195 @@
-# Dashboard-Plano
+# ⚡ ReCarga — Dashboard de Recarga Veicular
 
-# Integrantes
+## 👥 Integrantes
 
-| Nome | RM |
-|---|---|
-| *(Olavo Dadario Vianna Barreto )* | *(569272)* |
-| *(Mateus de Oliveira Fernandes Neves )* | *(572431)* |
-| *(Angela Sousa Takezawa)* | *(570797)* |
-| *(Paulo Henrique Lira Bilac de Araujo)* | *(569496)* |
-| *(Pedro Soares de Souza)* | *(571285)* |}
-| *(Jhon Cutile Titirico)* | *(571976)* |
-
-# ReCarga — Dashboard de Recarga Veicular
-
-## 📌 Sobre o projeto
-
-O **ReCarga** é um protótipo acadêmico de um sistema de gerenciamento de recarga de veículos elétricos.
-
-O projeto simula um estacionamento com várias vagas de recarga e mostra, em tempo real, informações como:
-
-- Corrente consumida por cada carregador;
-- Potência de cada veículo;
-- Energia consumida em kWh;
-- Custo da recarga;
-- Carga total do barramento;
-- Limite máximo de corrente;
-- Quantidade de vagas ativas;
-- Eventos de sobrecarga evitados;
-- Receita acumulada;
-- Diferença entre os planos pré-pago e pós-pago.
-
-A interface funciona diretamente no navegador e o servidor é feito apenas com a biblioteca padrão do Python. **Não é necessário instalar Flask ou outras bibliotecas Python.**
+| Nome                                | RM     |
+| ----------------------------------- | ------ |
+| Olavo Dadario Vianna Barreto        | 569272 |
+| Mateus de Oliveira Fernandes Neves  | 572431 |
+| Angela Sousa Takezawa               | 570797 |
+| Paulo Henrique Lira Bilac de Araujo | 569496 |
+| Pedro Soares de Souza               | 571285 |
+| Jhon Cutile Titirico                | 571976 |
 
 ---
 
-## 🎯 Objetivo
+## 📌 Sobre o projeto
 
-O principal objetivo do protótipo é demonstrar uma lógica de gerenciamento de carga.
+O **ReCarga** é um protótipo de um sistema inteligente para gerenciamento de recarga de veículos elétricos. A solução foi desenvolvida pensando em ambientes que possuem diversos pontos de recarga e precisam administrar uma capacidade elétrica limitada.
 
-O estacionamento possui uma capacidade máxima de **40 A**. Os carregadores são divididos em dois tipos:
+Com o crescimento do número de veículos elétricos, locais como estacionamentos, empresas e condomínios podem enfrentar problemas quando vários veículos são carregados ao mesmo tempo. Uma demanda elevada pode ultrapassar a capacidade disponível da instalação, causando sobrecargas ou exigindo investimentos maiores na infraestrutura elétrica.
 
-### Pré-pago
+O ReCarga busca solucionar esse problema por meio de um sistema que gerencia a demanda de potência, distribui a capacidade disponível entre os carregadores e permite o acompanhamento das recargas através de uma interface interativa.
 
-O plano pré-pago possui prioridade na distribuição de energia.
+Além do gerenciamento de energia, o sistema também simula a cobrança das recargas de acordo com o consumo de cada veículo. Dessa forma, o projeto reúne em uma única solução o **controle da demanda elétrica, o gerenciamento inteligente das recargas e o acompanhamento dos usuários e gestores através de um dashboard**.
 
-- Corrente-alvo: **16 A**;
-- Preço: **R$ 1,35/kWh**;
-- Possui capacidade reservada;
-- Não é reduzido pela falta de capacidade disponível para o pós-pago.
+---
 
-### Pós-pago
+## 🎯 A solução
 
-O plano pós-pago utiliza a capacidade que sobra depois do atendimento dos carregadores pré-pagos.
+O sistema simula um estacionamento com diversas vagas para veículos elétricos. Cada vaga possui um carregador que pode estar ativo ou desativado e utiliza uma determinada quantidade de energia.
 
-- Corrente-alvo: **10 A**;
-- Preço: **R$ 0,98/kWh**;
-- Pode ser limitado quando a carga do estacionamento fica alta;
-- Pode entrar em fila quando não existe capacidade suficiente.
+O ReCarga monitora constantemente a demanda dos carregadores e verifica se a capacidade máxima do sistema está sendo respeitada. Quando a demanda aumenta, o sistema distribui a energia disponível de forma inteligente, evitando que o limite seja ultrapassado.
+
+A interface permite acompanhar informações como:
+
+* ⚡ Corrente utilizada por cada carregador;
+* 🔋 Potência consumida;
+* 📊 Energia acumulada em kWh;
+* 💰 Custo individual das recargas;
+* 🔌 Carga total do sistema;
+* 🚨 Situações de sobrecarga evitadas;
+* 🅿️ Status das vagas;
+* 📈 Receita acumulada.
+
+---
+
+## ⚡ Gerenciamento inteligente da demanda
+
+O protótipo trabalha com uma capacidade máxima simulada de **40 A**. Todos os carregadores ativos compartilham essa capacidade.
+
+Para tornar a simulação mais próxima de um cenário comercial, o sistema trabalha com dois tipos de plano: **pré-pago** e **pós-pago**.
+
+### 🟢 Pré-pago
+
+Os carregadores do plano pré-pago possuem prioridade na distribuição da capacidade disponível.
+
+* Corrente-alvo de **16 A**;
+* Preço de **R$ 1,35 por kWh**;
+* Capacidade priorizada no sistema.
+
+### 🔵 Pós-pago
+
+Os carregadores do plano pós-pago utilizam a capacidade restante após o atendimento das demandas prioritárias.
+
+* Corrente-alvo de **10 A**;
+* Preço de **R$ 0,98 por kWh**;
+* Pode ter a corrente reduzida quando a demanda está elevada;
+* Pode aguardar caso não exista capacidade suficiente.
+
+Essa lógica permite demonstrar como uma infraestrutura com recursos limitados pode gerenciar diversos veículos simultaneamente sem ultrapassar sua capacidade máxima.
+
+---
+
+## 💰 Sistema de cobrança
+
+Cada recarga possui seu consumo acompanhado durante o funcionamento da simulação.
+
+O sistema calcula a energia consumida em **kWh** e utiliza o valor do plano selecionado para calcular o custo da recarga. Dessa forma, é possível acompanhar quanto cada veículo consumiu e qual foi o valor correspondente.
+
+A solução também registra a receita acumulada do sistema, permitindo que gestores tenham uma visão geral da operação.
+
+Essa funcionalidade demonstra como o gerenciamento da infraestrutura de recarga pode ser combinado com um modelo de cobrança para usuários.
+
+---
+
+## 🖥️ Dashboard e experiência do usuário
+
+O ReCarga possui uma interface desenvolvida para apresentar as informações do sistema de forma visual e organizada.
+
+Através do dashboard, é possível:
+
+* Visualizar a carga atual do sistema;
+* Acompanhar o consumo dos carregadores;
+* Ativar ou desativar vagas;
+* Alternar o plano de uma vaga;
+* Consultar o consumo de energia;
+* Acompanhar o custo das recargas;
+* Visualizar o status de cada carregador;
+* Acompanhar a receita acumulada.
+
+Os carregadores podem assumir diferentes estados, como **carregando**, **reservado**, **limitado**, **em fila** ou **livre**, facilitando a identificação da situação de cada vaga.
+
+---
+
+## 🚀 Diferenciais da solução
+
+O ReCarga não se limita a apresentar o consumo dos veículos. O projeto combina diferentes funcionalidades em um único protótipo:
+
+* **Distribuição inteligente da capacidade elétrica disponível**;
+* **Controle para evitar sobrecargas**;
+* **Priorização de diferentes tipos de usuários ou planos**;
+* **Sistema de cobrança baseado no consumo**;
+* **Monitoramento em tempo real**;
+* **Dashboard interativo para usuários e gestores**.
+
+A proposta foi pensada para ser aplicável em cenários reais onde a quantidade de veículos elétricos pode ser maior do que a capacidade disponível para carregamento simultâneo.
+
+---
+
+## 🧪 Protótipo atual
+
+O projeto já possui uma versão funcional que pode ser executada localmente.
+
+Atualmente, o protótipo conta com:
+
+* Simulação de múltiplos carregadores;
+* Gerenciamento da capacidade máxima;
+* Controle de prioridade entre os planos;
+* Cálculo de potência e energia;
+* Sistema de cobrança;
+* Atualização dos dados em tempo real;
+* Interface interativa no navegador.
+
+Isso permite demonstrar na prática o funcionamento da solução, indo além da ideia ou conceito inicial.
 
 ---
 
 ## 🧩 Tecnologias utilizadas
 
-O projeto é dividido em três partes principais:
+O projeto foi desenvolvido utilizando:
 
-### Python
+* **Python 3** — responsável pelo servidor, simulação e cálculos;
+* **HTML** — estrutura da interface;
+* **CSS** — organização e responsividade do dashboard;
+* **JavaScript** — comunicação com o servidor e atualização dos dados;
+* **Chart.js** — visualização gráfica das informações.
 
-Responsável pelo servidor, pela simulação e pelos cálculos.
-
-Tecnologias utilizadas:
-
-- Python 3;
-- `http.server`;
-- `threading`;
-- `random`;
-- `time`;
-- `webbrowser`;
-- `json`;
-- `pathlib`.
-
-Todas essas bibliotecas fazem parte da biblioteca padrão do Python.
-
-### HTML
-
-Responsável pela estrutura da página e pelos elementos do dashboard.
-
-Arquivo:
-
-```text
-templates/index.html
-```
-
-### CSS
-
-Responsável pelo visual, organização, cores, responsividade e componentes da interface.
-
-Arquivo:
-
-```text
-static/style.css
-```
-
-### JavaScript
-
-Responsável por buscar os dados do Python, atualizar a interface e criar o gráfico de receita.
-
-Arquivo:
-
-```text
-static/app.js
-```
-
-### Chart.js
-
-O gráfico de receita utiliza a biblioteca **Chart.js**, carregada diretamente pelo HTML através de uma CDN.
-
-Por isso, é necessário ter acesso à internet para carregar o gráfico.
+O projeto utiliza principalmente recursos da biblioteca padrão do Python, evitando a necessidade de instalar frameworks complexos para executar o protótipo.
 
 ---
 
-# 📁 Estrutura do projeto
+## 📁 Estrutura do projeto
 
 ```text
-recarga-vscode-split/
+Dashboard-Plano-main/
 │
-├── app.py
+├── Dashboard/
+│   └── app.py
 │
-├── templates/
+├── template/
 │   └── index.html
 │
-└── static/
+└── Static/
     ├── app.js
     └── style.css
 ```
 
-## `app.py`
-
-É o arquivo principal do projeto.
-
-Ele possui duas funções principais:
-
-1. Simular o funcionamento dos carregadores;
-2. Criar o servidor HTTP que entrega a página ao navegador.
-
 ---
 
-## `templates/index.html`
+## ⚙️ Como executar
 
-É a página principal do dashboard.
+### 1. Abra o projeto no VS Code
 
-Ela contém:
+Após extrair o projeto, abra a pasta principal no VS Code.
 
-- Cabeçalho do sistema;
-- Indicador da carga do barramento;
-- Barra de capacidade;
-- Indicadores das vagas;
-- Cards dos carregadores;
-- Gráfico de receita;
-- Fórmulas de potência e energia;
-- Informações dos planos;
-- Estatísticas do sistema.
+### 2. Execute o servidor
 
-O HTML também importa o CSS e o Chart.js.
-
----
-
-## `static/style.css`
-
-Controla toda a aparência do sistema.
-
-Entre outras coisas, define:
-
-- Cores;
-- Tipografia;
-- Cards;
-- Barra de carga;
-- Indicadores;
-- Botões;
-- Layout em duas colunas;
-- Responsividade para telas menores;
-- Estados visuais dos carregadores.
-
-O projeto utiliza as fontes **Space Grotesk**, **Inter** e **IBM Plex Mono** através do Google Fonts.
-
----
-
-## `static/app.js`
-
-É responsável pela comunicação entre o navegador e o servidor Python.
-
-A cada **1,5 segundo**, o JavaScript consulta:
-
-```text
-/api/state
-```
-
-Depois disso, atualiza os elementos da tela.
-
-Também permite:
-
-- Ativar/desativar uma vaga;
-- Alterar o plano de uma vaga;
-- Selecionar uma vaga para visualizar seus dados;
-- Atualizar o gráfico;
-- Atualizar a barra de carga.
-
----
-
-# ⚙️ Como funciona a simulação
-
-A simulação é atualizada a cada:
-
-```text
-1,5 segundos
-```
-
-Esse valor está definido em:
-
-```python
-TICK_SECONDS = 1.5
-```
-
-O programa também converte esse intervalo para horas:
-
-```python
-TICK_HOURS = TICK_SECONDS / 3600
-```
-
-Isso é necessário para calcular a energia consumida.
-
----
-
-# ⚡ Cálculo da potência
-
-O sistema utiliza a fórmula:
-
-```text
-P = V × I
-```
-
-Onde:
-
-- `P` = potência em watts;
-- `V` = tensão;
-- `I` = corrente.
-
-No projeto, a tensão utilizada é:
-
-```python
-VOLTAGE = 230
-```
-
-Como o dashboard mostra a potência em kW, o resultado é dividido por 1000:
-
-```python
-power = cur * VOLTAGE / 1000
-```
-
-### Exemplo
-
-Se um carregador estiver utilizando 10 A:
-
-```text
-P = 230 × 10
-P = 2300 W
-P = 2,3 kW
-```
-
----
-
-# 🔋 Cálculo da energia
-
-A energia é calculada usando:
-
-```text
-E = P × Δt
-```
-
-Onde:
-
-- `E` = energia em kWh;
-- `P` = potência em kW;
-- `Δt` = tempo em horas.
-
-No código:
-
-```python
-dE = power * TICK_HOURS
-```
-
-O resultado é acumulado:
-
-```python
-s["energy_kwh"] += dE
-```
-
-Assim, quanto mais tempo o carregador permanece ativo, maior será o consumo acumulado.
-
----
-
-# 💰 Cálculo do custo
-
-O custo é calculado multiplicando a energia consumida pelo preço do plano.
-
-Para o pré-pago:
-
-```python
-s["cost"] += dE * PRICE_PRE
-```
-
-Para o pós-pago:
-
-```python
-s["cost"] += dE * PRICE_POS
-```
-
-Os valores utilizados são:
-
-```python
-PRICE_PRE = 1.35
-PRICE_POS = 0.98
-```
-
-Portanto:
-
-```text
-Pré-pago  → R$ 1,35/kWh
-Pós-pago  → R$ 0,98/kWh
-```
-
----
-
-# 🔌 Controle de carga
-
-O estacionamento possui:
-
-```python
-MAX_CAPACITY_A = 40
-```
-
-Ou seja, a capacidade máxima simulada é de **40 A**.
-
-Primeiro o sistema calcula quanto os carregadores pré-pagos precisam:
-
-```python
-pre_target_total = sum(s["target_a"] for s in pre)
-```
-
-Se a demanda pré-paga ultrapassar o limite, ela é proporcionalmente ajustada.
-
-Depois disso, o sistema calcula quanto sobrou:
-
-```python
-remaining = max(MAX_CAPACITY_A - reserved, 0)
-```
-
-Essa capacidade restante é destinada aos carregadores pós-pagos.
-
----
-
-# 🚨 Controle de sobrecarga
-
-O sistema verifica se a demanda do pós-pago é maior do que a capacidade restante:
-
-```python
-is_overloaded = pos_target_total > remaining + 0.01
-```
-
-Quando isso acontece, o sistema pode reduzir a corrente dos carregadores pós-pagos.
-
-Os estados possíveis são:
-
-### `carregando`
-
-O carregador está funcionando normalmente.
-
-### `reservado`
-
-O carregador pré-pago está recebendo a capacidade reservada.
-
-### `limitado`
-
-O carregador pós-pago está funcionando com corrente reduzida.
-
-### `em fila`
-
-Não existe capacidade suficiente para o carregador pós-pago naquele momento.
-
-### `livre`
-
-A vaga está desativada.
-
----
-
-# 🎲 Variação da corrente
-
-A corrente possui uma pequena variação aleatória:
-
-```python
-jitter = random.uniform(0.9, 1.1)
-```
-
-Isso faz a simulação parecer mais próxima de uma leitura real de sensor.
-
-Por exemplo, um carregador com alvo de 10 A pode apresentar valores próximos de:
-
-```text
-9,2 A
-10,1 A
-10,7 A
-9,8 A
-```
-
-Essa variação é apenas uma simulação.
-
----
-
-# 🚗 Vagas simuladas
-
-O projeto começa com seis vagas:
-
-```text
-#1 — Onix EV
-#2 — HB20 e
-#3 — Kwid Volt
-#4 — Compass e
-#5 — Fastback e
-#6 — Corolla e+
-```
-
-Inicialmente:
-
-- Vagas 1 e 4 → pré-pago;
-- Vagas 2 e 3 → pós-pago;
-- Vagas 5 e 6 → desativadas.
-
-Esses valores podem ser modificados diretamente no `app.py`.
-
----
-
-# 🔄 API do servidor
-
-O Python cria uma pequena API HTTP.
-
-## GET `/`
-
-Retorna a página principal:
-
-```text
-templates/index.html
-```
-
-## GET `/style.css`
-
-Retorna:
-
-```text
-static/style.css
-```
-
-## GET `/app.js`
-
-Retorna:
-
-```text
-static/app.js
-```
-
-## GET `/api/state`
-
-Retorna os dados atuais da simulação em formato JSON.
-
-Exemplo simplificado:
-
-```json
-{
-  "stations": [],
-  "history": [],
-  "overload_events": 0,
-  "total_load": 25.4,
-  "total_revenue": 10.52,
-  "total_energy": 8.21,
-  "max_capacity": 40,
-  "voltage": 230
-}
-```
-
-## POST `/api/toggle_plug/<id>`
-
-Ativa ou desativa um carregador.
-
-Exemplo:
-
-```text
-/api/toggle_plug/1
-```
-
-## POST `/api/toggle_plan/<id>`
-
-Troca o plano de uma vaga entre pré-pago e pós-pago.
-
-Exemplo:
-
-```text
-/api/toggle_plan/1
-```
-
----
-
-# 🌐 Como rodar no VS Code
-
-## 1. Instale o Python
-
-É necessário ter **Python 3** instalado.
-
-Para verificar:
-
-```bash
-python --version
-```
-
-ou:
-
-```bash
-python3 --version
-```
-
----
-
-## 2. Abra o projeto
-
-Extraia o arquivo `.zip`.
-
-Depois abra a pasta:
-
-```text
-recarga-vscode-split
-```
-
-no VS Code.
-
-É importante manter esta estrutura:
-
-```text
-app.py
-templates/
-static/
-```
-
-Não mova o `app.py` para outra pasta.
-
----
-
-## 3. Execute o programa
-
-Abra:
-
-```text
-app.py
-```
-
-No VS Code, clique em:
-
-```text
-▶ Run Python File
-```
-
-Também é possível utilizar o terminal:
+Abra o arquivo `app.py` e execute o programa utilizando o botão **Run Python File** ou pelo terminal.
 
 ```bash
 python app.py
 ```
 
-No Linux/macOS, caso necessário:
+Caso necessário:
 
 ```bash
 python3 app.py
 ```
 
----
+### 3. Acesse o dashboard
 
-## 4. Acesse o dashboard
-
-O programa utiliza a porta:
-
-```text
-5000
-```
-
-O endereço será:
-
-```text
-http://localhost:5000
-```
-
-O navegador normalmente será aberto automaticamente pelo próprio programa.
-
-Se não abrir, copie o endereço acima para o navegador.
-
----
-
-# 🛑 Como parar o programa
-
-No terminal onde o Python está rodando, pressione:
-
-```text
-Ctrl + C
-```
-
-Isso encerra o servidor.
-
----
-
-# ❌ Problemas comuns
-
-## `python` não é reconhecido
-
-O Python provavelmente não está instalado ou não foi adicionado ao PATH.
-
-Instale o Python 3 e tente novamente.
-
----
-
-## O navegador não abriu
-
-Isso não significa necessariamente que o programa deu erro.
-
-Abra manualmente:
+Com o servidor em execução, abra o navegador no endereço:
 
 ```text
 http://localhost:5000
@@ -634,200 +197,48 @@ http://localhost:5000
 
 ---
 
-## Erro dizendo que a porta 5000 está em uso
+## 🔮 Próximos passos
 
-Outro programa pode estar utilizando a porta.
+Apesar de o projeto atual ser uma simulação, a proposta pode evoluir para uma aplicação conectada a uma infraestrutura real.
 
-No `app.py`, altere:
+Entre as possíveis evoluções estão:
 
-```python
-PORT = 5000
-```
+* Integração com carregadores reais;
+* Leitura de dados através de sensores;
+* Integração com dispositivos como ESP32;
+* Autenticação de usuários;
+* Histórico de recargas;
+* Banco de dados;
+* Sistema de pagamentos;
+* Aplicação mobile;
+* Comunicação segura com os carregadores.
 
-para, por exemplo:
-
-```python
-PORT = 5001
-```
-
-Depois execute novamente e acesse:
-
-```text
-http://localhost:5001
-```
-
----
-
-## A página não encontra o CSS ou JavaScript
-
-Verifique se a estrutura está exatamente assim:
+Uma possível evolução da arquitetura seria:
 
 ```text
-recarga-vscode-split/
-├── app.py
-├── templates/
-│   └── index.html
-└── static/
-    ├── app.js
-    └── style.css
+Sensores / Carregadores
+          ↓
+       ESP32
+          ↓
+Comunicação com o servidor
+          ↓
+Gerenciamento da demanda
+          ↓
+Cálculo de consumo e cobrança
+          ↓
+Dashboard para usuários e gestores
 ```
-
-O `app.py` precisa estar no mesmo nível das pastas `templates` e `static`.
 
 ---
 
-## O gráfico não aparece
+## 💡 Conclusão
 
-O gráfico utiliza o Chart.js através de uma CDN:
+O **ReCarga** apresenta uma proposta para tornar o gerenciamento de recarga de veículos elétricos mais eficiente e organizado.
 
-```html
-https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.4/chart.umd.min.js
-```
+Por meio da distribuição inteligente da potência, do acompanhamento do consumo e de um sistema de cobrança integrado, o projeto demonstra como diferentes aspectos da infraestrutura de recarga podem ser administrados em conjunto.
 
-Portanto, verifique se o computador está conectado à internet.
+O protótipo atual representa uma base funcional que pode ser evoluída para aplicações em ambientes comerciais, oferecendo benefícios tanto para os gestores da infraestrutura quanto para os usuários dos veículos elétricos.
 
-O restante do servidor Python não depende de instalar bibliotecas externas.
-
----
-
-# 🧠 Resumo da execução
-
-O funcionamento geral pode ser entendido assim:
-
-```text
-                 ┌─────────────────┐
-                 │     app.py      │
-                 │ Python + API    │
-                 └────────┬────────┘
-                          │
-                          │ JSON
-                          ▼
-                 ┌─────────────────┐
-                 │    app.js       │
-                 │ Atualiza dados  │
-                 └────────┬────────┘
-                          │
-                          ▼
-                 ┌─────────────────┐
-                 │   index.html    │
-                 │    Dashboard    │
-                 └────────┬────────┘
-                          │
-                          ▼
-                 ┌─────────────────┐
-                 │    style.css    │
-                 │ Visual da página │
-                 └─────────────────┘
-```
-
-O Python simula os carregadores e disponibiliza os dados.
-
-O JavaScript consulta esses dados.
-
-O HTML organiza as informações.
-
-O CSS deixa o dashboard visualmente organizado.
-
----
-
-# 🔧 Onde alterar as configurações
-
-As principais configurações estão no começo do `app.py`:
-
-```python
-VOLTAGE = 230
-MAX_CAPACITY_A = 40
-PRICE_PRE = 1.35
-PRICE_POS = 0.98
-TICK_SECONDS = 1.5
-PORT = 5000
-```
-
-### Tensão
-
-```python
-VOLTAGE = 230
-```
-
-Altera a tensão usada no cálculo da potência.
-
-### Capacidade máxima
-
-```python
-MAX_CAPACITY_A = 40
-```
-
-Altera o limite total de corrente do estacionamento.
-
-### Preço pré-pago
-
-```python
-PRICE_PRE = 1.35
-```
-
-Altera o preço do kWh do plano pré-pago.
-
-### Preço pós-pago
-
-```python
-PRICE_POS = 0.98
-```
-
-Altera o preço do kWh do plano pós-pago.
-
-### Velocidade da simulação
-
-```python
-TICK_SECONDS = 1.5
-```
-
-Define de quanto em quanto tempo a simulação é atualizada.
-
-### Porta
-
-```python
-PORT = 5000
-```
-
-Define a porta utilizada pelo servidor local.
-
----
-
-# 📚 Observação importante
-
-Este projeto é uma **simulação acadêmica**.
-
-Ele não controla carregadores elétricos reais e não recebe dados reais de um ESP32 ou sensor de efeito Hall.
-
-A interface representa como esse sistema poderia funcionar futuramente.
-
-Na proposta apresentada no dashboard, um sistema real poderia utilizar:
-
-```text
-Sensor de efeito Hall
-        ↓
-      ESP32
-        ↓
- Comunicação Bluetooth
-        ↓
-Aplicação / servidor
-        ↓
-Cálculo de potência,
-energia e custo
-        ↓
-     Dashboard
-```
-
-Para transformar o protótipo em um sistema real, seria necessário implementar a comunicação com o ESP32, aquisição das leituras do sensor, autenticação, armazenamento dos dados e comunicação segura com os carregadores.
-
----
-
-# 👨‍💻 Projeto
-
-**Nome:** ReCarga  
-**Tipo:** Protótipo acadêmico  
-**Versão da interface:** v0.3  
-**Backend:** Python  
 **Frontend:** HTML + CSS + JavaScript  
 **Gráficos:** Chart.js  
 **Servidor:** `http.server`  
